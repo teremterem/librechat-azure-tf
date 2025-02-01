@@ -1,0 +1,43 @@
+name: Renovate
+on:
+  # Allows manual/automated ad-hoc trigger
+  workflow_dispatch:
+  # Run twice in the early morning for initial and follow up steps (create pull request and merge)
+  schedule:
+    - cron: '0 4,5 * * Sat'
+concurrency: renovate
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get GitHub App token
+        id: get_token
+        uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
+        with:
+          app-id: ${{ secrets.RENOVATE_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@d385c88822a237acaead89c462fa0aef7502748f # v41.0.11
+        with:
+          configurationFile: .github/renovate.js
+          token: "${{ steps.get_token.outputs.token }}"
+        env:
+          # Repository taken from variable to keep configuration file generic
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          # Onboarding not needed for self hosted
+          RENOVATE_ONBOARDING: "false"
+          # Username to be assigned to the PRs
+          RENOVATE_ASSIGNES: "marcoschmidl"
+          # Username for GitHub authentication (should match GitHub App name + [bot])
+          RENOVATE_USERNAME: "renovate-bot-pw[bot]"
+          # Git commit author used, must match GitHub App
+          RENOVATE_GIT_AUTHOR: "renovate-bot-pw <1130075+renovate-bot-pwbot]@users.noreply.github.com>"
+          # Use GitHub API to create commits (this allows for signed commits from GitHub App)
+          RENOVATE_PLATFORM_COMMIT: "false"
+          # Log level for Renovate
+          LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
