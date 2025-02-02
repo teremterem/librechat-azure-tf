@@ -38,7 +38,7 @@ variable "search_enabled" {
 variable "librechat_version" {
   type        = string
   description = "Libre"
-  # renovate: datasource=github-releases depName=danny-avila/LibreChat versioning=hashicorp
+  # renovate: datasource=github-releases depName=danny-avila/LibreChat versioning=loose
   default = "v0.7.6"
 }
 
