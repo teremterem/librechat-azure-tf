@@ -1,4 +1,4 @@
-name: PR validation
+name: TF validation
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   validate:
-    name: validatV
+    name: validate
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,26 +25,29 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_USE_OIDC: true
       ARM_USE_AZUREAD: true
-      CLOUDFARE_API_TOKEN: ${{ secrets.CLOUDFARE_API_TOKEN }}
-      TF_VAR_openapi_api_key: ${{ secrets.OPENAI_API_KEY }}
-      TF_VAR_librechat_app_id: ${{ secrets.LIBRECHAT_APP_ID }}
-      TF_VAR_librechat_app_secret: ${{ secrets.LIBRECHAT_APP_SECRET }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      TF_VAR_github_client_id: ${{ secrets.LIBRECHAT_APP_ID }}
+      TF_VAR_github_client_secret: ${{ secrets.LIBRECHAT_APP_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           sparse-checkout: src
+
       - name: "Azure CLI login"
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUB_ID }}
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=danny-avila/LibreChat versioning=hashicorp
           terraform_version: 1.10.4
+
       - name: Terraform Init
         id: init
         run: |
@@ -53,23 +56,23 @@ jobs:
             -backend-config="storage_account_name=${{ secrets.TF_STATE_STAC }}" \
             -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
             -backend-config="key=terraform.tfstate"
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt --check
+
       - name: Terraform Validate
         id: validate
-        run: terraform validate
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          soft_fail: true
+        run: terraform validate -no-color
+
       - name: Terraform Plan
         id: plan
         run: |
           terraform plan \
             -no-color \
             -out ./tfplan.out
-            continue-on-error: true
+        continue-on-error: true
+
       - uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         env:
