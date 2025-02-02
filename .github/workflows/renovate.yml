@@ -35,7 +35,7 @@ jobs:
           # Username for GitHub authentication (should match GitHub App name + [bot])
           RENOVATE_USERNAME: "renovate-bot-pw[bot]"
           # Git commit author used, must match GitHub App
-          RENOVATE_GIT_AUTHOR: "renovate-bot-pw <1130075+renovate-bot-pwbot]@users.noreply.github.com>"
+          RENOVATE_GIT_AUTHOR: "renovate-bot-pw <1130075+renovate-bot-pw[bot]@users.noreply.github.com>"
           # Use GitHub API to create commits (this allows for signed commits from GitHub App)
           RENOVATE_PLATFORM_COMMIT: "false"
           # Log level for Renovate
