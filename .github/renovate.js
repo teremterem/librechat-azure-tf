@@ -59,7 +59,9 @@ module.exports = {
       {
         customType: "regex",
         fileMatch: [
-          "terraform.yml",
+          "tf-deploy.yml",
+          "tf-validate.yml",
+          "_variables.tf"
         ],
         matchStrings: [
           "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\n.*?: (?<currentValue>.*)",
@@ -69,4 +71,3 @@ module.exports = {
     ],
     allowedPostUpgradeCommands: [".*"],
   };
-  
