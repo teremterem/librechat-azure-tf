@@ -60,7 +60,7 @@ module.exports = {
         customType: "regex",
         fileMatch: [
           "tf-deploy.yml",
-          "tf-validate.yml",
+          "tf-validation.yml",
           "_variables.tf"
         ],
         matchStrings: [
