@@ -13,12 +13,6 @@ variable "location" {
   default     = "swedencentral"
 }
 
-variable "custom_domain" {
-  type      = string
-  default   = "philipwelz.cloud"
-  sensitive = true
-}
-
 variable "host" {
   type      = string
   default   = "chat"
@@ -129,6 +123,10 @@ variable "github_client_id" {
   sensitive = true
 }
 
-# variable "cloudflare_api_token" {
-#   sensitive = true
-# }
+variable "cloudflare_zone_id" {
+  sensitive = true
+}
+
+variable "custom_domain" {
+  sensitive = true
+}
