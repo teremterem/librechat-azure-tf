@@ -8,7 +8,7 @@ terraform:
   - any-glob-to-any-file:
     - src/**
 
-docs:
+documentation:
 - changed-files:
   - any-glob-to-any-file:
     - '**/*.md'
