@@ -14,9 +14,10 @@ variable "location" {
 }
 
 variable "host" {
-  type      = string
-  default   = "chat"
-  sensitive = true
+  type        = string
+  description = "Hostname for the Container Apps Custom Domain"
+  default     = "chat"
+  sensitive   = true
 }
 
 ###########################################
@@ -25,13 +26,13 @@ variable "host" {
 
 variable "search_enabled" {
   type        = bool
-  description = "Enables Meili Search"
+  description = "Enables Meili Search integration to search messages"
   default     = false
 }
 
 variable "librechat_version" {
   type        = string
-  description = "Libre"
+  description = "LibreChat version"
   # renovate: datasource=github-releases depName=danny-avila/LibreChat versioning=loose
   default = "v0.7.6"
 }
@@ -40,6 +41,7 @@ variable "librechat_endpoints" {
   type = list(object({
     name = string
   }))
+  description = "Values for LibreChat endpoints"
   default = [
     {
       name = "openAI"
@@ -56,7 +58,7 @@ variable "librechat_endpoints" {
 
 variable "openai_enabled" {
   type        = bool
-  description = "Enables OpenAI"
+  description = "Enables OpenAI integration"
   default     = true
 
 }
@@ -65,6 +67,7 @@ variable "openai_models" {
   type = list(object({
     name = string
   }))
+  description = "Values for enabled OpenAI models"
   default = [
     {
       name = "gpt-4o"
@@ -83,8 +86,9 @@ variable "openai_models" {
 ###########################################
 
 variable "azure_openai_api_version" {
-  type    = string
-  default = "2024-08-01-preview"
+  type        = string
+  description = "Value for the Azure OpenAI API version"
+  default     = "2024-08-01-preview"
 }
 
 variable "azure_openai_models" {
@@ -93,6 +97,7 @@ variable "azure_openai_models" {
     version                           = string
     rate_limit_per_minute_in_thousand = number
   }))
+  description = "Values for enabled Azure OpenAI models"
   default = [
     {
       name                              = "gpt-4o"
@@ -112,21 +117,26 @@ variable "azure_openai_models" {
 ###########################################
 
 variable "openai_api_key" {
-  sensitive = true
+  description = "Value for the OpenAI API key"
+  sensitive   = true
 }
 
 variable "github_client_secret" {
-  sensitive = true
+  description = "GitHub App client Id for authentication"
+  sensitive   = true
 }
 
 variable "github_client_id" {
-  sensitive = true
+  description = "GitHub App client secret for authentication"
+  sensitive   = true
 }
 
 variable "cloudflare_zone_id" {
-  sensitive = true
+  description = "Value for the Cloudflare Zone ID"
+  sensitive   = true
 }
 
 variable "custom_domain" {
-  sensitive = true
+  description = "Value for the custom domain"
+  sensitive   = true
 }
