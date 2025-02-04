@@ -14,10 +14,10 @@ variable "location" {
 }
 
 variable "host" {
-  type      = string
+  type        = string
   description = "Hostname for the Container Apps Custom Domain"
-  default   = "chat"
-  sensitive = true
+  default     = "chat"
+  sensitive   = true
 }
 
 ###########################################
@@ -86,9 +86,9 @@ variable "openai_models" {
 ###########################################
 
 variable "azure_openai_api_version" {
-  type    = string
+  type        = string
   description = "Value for the Azure OpenAI API version"
-  default = "2024-08-01-preview"
+  default     = "2024-08-01-preview"
 }
 
 variable "azure_openai_models" {
@@ -118,25 +118,25 @@ variable "azure_openai_models" {
 
 variable "openai_api_key" {
   description = "Value for the OpenAI API key"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "github_client_secret" {
   description = "GitHub App client Id for authentication"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "github_client_id" {
   description = "GitHub App client secret for authentication"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "cloudflare_zone_id" {
   description = "Value for the Cloudflare Zone ID"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "custom_domain" {
   description = "Value for the custom domain"
-  sensitive = true
+  sensitive   = true
 }
