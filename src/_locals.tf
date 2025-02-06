@@ -7,6 +7,7 @@ locals {
     owner      = "PWE"
   }
   # Librechat config variables
+  # https://www.librechat.ai/docs/configuration/dotenv
   chat_env_vars = {
     HELP_AND_FAQ_URL                   = "https://librechat.ai"
     APP_TITLE                          = "Chat"

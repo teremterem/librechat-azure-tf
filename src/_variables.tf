@@ -73,10 +73,10 @@ variable "openai_models" {
       name = "gpt-4o"
     },
     {
-      name = "o1-mini"
+      name = "gpt-4o-mini"
     },
     {
-      name = "gpt-4o-mini"
+      name = "o3-mini"
     },
   ]
 }
