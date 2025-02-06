@@ -72,9 +72,6 @@ resource "azurerm_container_app" "librechat" {
       cpu    = 1
       memory = "2Gi"
 
-
-      # https://www.librechat.ai/docs/configuration/dotenv
-
       ###########################################
       # Common
       ###########################################
@@ -109,7 +106,6 @@ resource "azurerm_container_app" "librechat" {
         name        = "JWT_REFRESH_SECRET"
         secret_name = "jwtrefreshsecret"
       }
-
 
       ###########################################
       # MongoDb
