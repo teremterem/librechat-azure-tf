@@ -159,7 +159,7 @@ else
     echo "Role assignment Blob Data Owner created..."
 fi
 
-# create federated credential for branches
+# create federated credential for the main branch
 az identity federated-credential create \
     --resource-group $rg \
     --identity-name "$miName" \
@@ -168,7 +168,7 @@ az identity federated-credential create \
     --subject "repo:$ghRepo::ref:refs/heads/main"\
     --audiences "api://AzureADTokenExchange"
 
-# create federated credential for environment
+# create federated credential for pull requests
 az identity federated-credential create \
     --resource-group $rg \
     --identity-name "$miName" \
