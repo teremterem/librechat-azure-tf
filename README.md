@@ -40,7 +40,7 @@ This script creates the necessary resources in Azure to store the Terraform stat
 
 You can set the variables in the script to match your desired configuration. Provide herefor the following variables in the script itself or as `.env` file:
 
-- __name__ - the project nanme
+- __name__ - the project name
 - __scope__ - the scope, example: tf for the terraform environment
 - __location__ - the Azure location to deploy the resources
 - __tag__ - Tags
