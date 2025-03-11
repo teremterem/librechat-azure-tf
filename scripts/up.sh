@@ -44,20 +44,21 @@ else
     location="swedencentral"
     tag="$stage"
 
-    # Resource Group
-    rg="rg-$name-$scope"
-
-    # Service Principal
-    spName="sp-$name-$scope"
-
-    # Storage Account
-    saName="stac0${name}0${scope}"
-    saSku="Standard_ZRS"
-    scName="blobcont-$name-$scope"
-
     # GitHub
     ghRepo="philwelz/chat"
 fi
+
+# Set default values
+# Resource Group
+rg="rg-$name-$scope"
+
+# Managed Identity
+miName="mi-$name-$scope"
+
+# Storage Account
+saName="stac0${name}0${scope}"
+saSku="Standard_ZRS"
+scName="blobcont-$name-$scope"
 
 # Set subscription
 az account set --subscription "$subscriptionId"
@@ -111,7 +112,7 @@ fi
 
 # Create managed identity
 az identity create \
-    --name "mi-$name-$scope" \
+    --name "$miName" \
     --resource-group "$rg" \
     --location "$location" \
     --tags env="$tag" managedBy="terraform-scaffolding"
@@ -158,20 +159,20 @@ else
     echo "Role assignment Blob Data Owner created..."
 fi
 
-# create federated credential for branches
+# create federated credential for the main branch
 az identity federated-credential create \
     --resource-group $rg \
-    --identity-name "mi-$name-$scope" \
-    --name "fc-github-$name-$scope" \
+    --identity-name "$miName" \
+    --name "fc-github-$name-$scope-branch" \
     --issuer "https://token.actions.githubusercontent.com" \
     --subject "repo:$ghRepo::ref:refs/heads/main"\
     --audiences "api://AzureADTokenExchange"
 
-# create federated credential for environment
+# create federated credential for pull requests
 az identity federated-credential create \
     --resource-group $rg \
-    --identity-name "mi-$name-$scope-pr" \
-    --name "fc-github-$name-$scope" \
+    --identity-name "$miName" \
+    --name "fc-github-$name-$scope-pr" \
     --issuer "https://token.actions.githubusercontent.com" \
     --subject "repo:$ghRepo:pull_request"\
     --audiences "api://AzureADTokenExchange"
