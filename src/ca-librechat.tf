@@ -92,6 +92,7 @@ resource "azurerm_container_app" "librechat" {
         name        = "CREDS_KEY"
         secret_name = "credskey"
       }
+
       env {
         name        = "CREDS_IV"
         secret_name = "credsiv"
@@ -102,6 +103,7 @@ resource "azurerm_container_app" "librechat" {
         name        = "JWT_SECRET"
         secret_name = "jwtsecret"
       }
+
       env {
         name        = "JWT_REFRESH_SECRET"
         secret_name = "jwtrefreshsecret"
@@ -118,7 +120,7 @@ resource "azurerm_container_app" "librechat" {
       }
 
       ###########################################
-      # MongoDb
+      # AI Endpoints
       ###########################################
 
       env {
@@ -156,7 +158,7 @@ resource "azurerm_container_app" "librechat" {
       }
 
       ###########################################
-      # Azure OpoenAI
+      # Azure OpenAI
       ###########################################
 
       dynamic "env" {

@@ -41,7 +41,7 @@ locals {
     ALLOW_REGISTRATION           = false
     ALLOW_EMAIL_LOGIN            = false
     ALLOW_PASSWORD_RESET         = false
-    LLOW_UNVERIFIED_EMAIL_LOGIN  = false
+    ALLOW_UNVERIFIED_EMAIL_LOGIN = false
     ALLOW_SOCIAL_LOGIN           = true
     ALLOW_SOCIAL_REGISTRATION    = false
     GITHUB_CLIENT_ID             = var.github_client_id
